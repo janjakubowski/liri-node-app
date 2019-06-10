@@ -47,26 +47,23 @@ Also, use _fs_ to read and write to the file system.
 ### movie-this
 3. `node liri.js movie-this '<movie name here>'`
 
-   * This will output the following information to your terminal/bash window:
+   * Output the following information to the terminal/bash window:
 
      ```
        * Title of the movie.
+       * Movie Rating (PG, PG-134, etc)
        * Year the movie came out.
-       * IMDB Rating of the movie.
-       * Rotten Tomatoes Rating of the movie.
+       * Review Ratings from IMDB, Rotten Tomatoes, and Metacritic 
        * Country where the movie was produced.
-       * Language of the movie.
-       * Plot of the movie.
+       * Language(s) spoken in the movie.
        * Actors in the movie.
+       * Plot of the movie.
      ```
 
-   * If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
+   * If the user doesn't type a movie in, the program will output data for the movie 'Dr. Strangelove' 
+     * Peter Sellers is off the hook!
 
-     * If you haven't watched "Mr. Nobody," then you should: <http://www.imdb.com/title/tt0485947/>
-
-     * It's on Netflix!
-
-   * You'll use the `axios` package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use `trilogy`.
+   * Uses the `axios` package to retrieve data from the OMDB API. The OMDB API requires an API key ==> using `trilogy`.
 
 ### do-what-it-says
 4. `node liri.js do-what-it-says`

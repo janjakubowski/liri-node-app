@@ -11,8 +11,13 @@ function mapArtists (artist) {
     return artist.name;
 };
 
+function mapRatings (ratings) {
+    return ratings.Source + ": " + ratings.Value;
+};
+
 var songTitle = ""
 function spotifyThisSong(songTitle) {
+
     if (!songTitle) { songTitle = 'revolution'}
 
     console.log("Searching Spotify for: " + songTitle);
@@ -21,6 +26,7 @@ function spotifyThisSong(songTitle) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
+
         var song = data.tracks.items;
         for (var i=0; i < data.tracks.items.length; i++) {
             result = i + 1;
@@ -29,44 +35,44 @@ function spotifyThisSong(songTitle) {
             console.log("Song Title: " + song[i].album.name);
             console.log("can be found on the album: " + song[i].name + " | track number: " + song[i].track_number);
             console.log("URL to preview the song on Spotify: " + song[i].preview_url);
-            
-            // console.log(JSON.stringify(song[i], null, 3));
-
         };
 
         if (data.tracks.total === 0) { console.log("\n Sorry, Spotify did not find any songs with " + songTitle + " in the title.\n"); };
-    
-});
-
+    });
 } 
 
 function movieThis (movieTitle) {
+
     if (!movieTitle) {
-        movieTitle = 'mr.+nobody';
-    } else {
-        movieTitle =movieTitle.replace(/ /g, '+');
+        movieTitle = "Dr. Strangelove";
     }
     
     var queryUrl = "http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=trilogy";
     axios.get(queryUrl).then(
         function(response) {
-            console.log(JSON.stringify(response.data, null, 3));
-        //   console.log("Release Year: " + response.data.Year);
+            // console.log(JSON.stringify(response.data, null, 3));
+          console.log("Title: " + response.data.Title);
+          console.log("Rated: " + response.data.Rated);
+          console.log("Released: " + response.data.Released);
+          
+          console.log("Reviews: " + response.data.Ratings.map(mapRatings));
+          console.log("Produced in: " + response.data.Country);
+          console.log("Language(s): " + response.data.Language);
+          console.log("Starring: " + response.data.Actors);
+          console.log("Plot: " + response.data.Plot);
         })
         .catch(function(error) {
+
           if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log("---------------Data---------------");
-            console.log(error.response.data);
-            console.log("---------------Status---------------");
-            console.log(error.response.status);
-            console.log("---------------Status---------------");
-            console.log(error.response.headers);
+            // Responded with a status code that falls out of the range of 2xx
+            console.log("*** Data: " + error.response.data + " ***");
+            console.log("*** Status: " + error.response.status + " ***");
+            console.log("*** Headers: " + error.response.headers + " ***");
+
           } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an object that comes back with details pertaining to the error that occurred.
+            // No response was received, log object with error details
             console.log(error.request);
+
           } else {
             // Something happened in setting up the request that triggered an Error
             console.log("Error", error.message);
