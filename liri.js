@@ -7,17 +7,34 @@ var moment = require("moment");
 
 var spotify = new Spotify(keys.spotify);
 
+function mapArtists (artist) {
+    return artist.name;
+};
 
 var songTitle = ""
 function spotifyThisSong(songTitle) {
     if (!songTitle) { songTitle = 'revolution'}
-    console.log(songTitle);
+
+    console.log("Searching Spotify for: " + songTitle);
     
-    spotify.search({ type: 'track', query: songTitle, limit: '1' }, function(err, data) {
+    spotify.search({ type: 'track', query: songTitle, limit: "10" }, function(err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
-        console.log(JSON.stringify(data, null, 3)); 
+        var song = data.tracks.items;
+        for (var i=0; i < data.tracks.items.length; i++) {
+            result = i + 1;
+            console.log("\nResult #" + result + " --------------------------------------")
+            console.log("Artist(s): " + song[i].artists.map(mapArtists));
+            console.log("Song Title: " + song[i].album.name);
+            console.log("can be found on the album: " + song[i].name + " | track number: " + song[i].track_number);
+            console.log("URL to preview the song on Spotify: " + song[i].preview_url);
+            
+            // console.log(JSON.stringify(song[i], null, 3));
+
+        };
+
+        if (data.tracks.total === 0) { console.log("\n Sorry, Spotify did not find any songs with " + songTitle + " in the title.\n"); };
     
 });
 
@@ -75,11 +92,7 @@ function concertThis (artistName) {
     };
 
 var action = process.argv[2];
-var target = process.argv[3];
-for (i=4; i < process.argv.length; i++) {
-    target = target + ' ' + process.argv[i];
-};
-
+var target = process.argv.slice(3).join(" ");
 
 switch (action) {
 
