@@ -25,6 +25,7 @@ Also, use _fs_ to read and write to the file system.
 
    * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
 
+     * Lineup of performers
      * Name of the venue
      * Venue location
      * Date of the Event (use moment to format this as "MM/DD/YYYY")
@@ -61,7 +62,7 @@ Also, use _fs_ to read and write to the file system.
      ```
 
    * If the user doesn't type a movie in, the program will output data for the movie 'Dr. Strangelove' 
-     * Peter Sellers is off the hook!
+     * *Peter Sellers is off the hook!*
 
    * Uses the `axios` package to retrieve data from the OMDB API. The OMDB API requires an API key ==> using `trilogy`.
 
@@ -92,4 +93,4 @@ Also, use _fs_ to read and write to the file system.
 
 ### Functions not used in homework before
 
-* _array.map()_ used when result set returns an array of objects
+* _array.map()_ used when result set returns an array of elements, e.g. names, or objects, e.g. source and value
